@@ -1,6 +1,5 @@
-[localhostgroup]
+[localhosts]
 172.31.21.172
-localhost
 #10.0.1.48
 [webserver]
 172.31.18.124
