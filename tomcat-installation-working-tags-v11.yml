@@ -1,0 +1,73 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+
+  tasks:
+    - name: Make sure that we can connect to the machine
+      ping:
+
+    - name: add group "tomcat"
+      group: name=tomcat
+
+    - name: add user "tomcat"
+      user: name=tomcat group=tomcat createhome=yes
+      become: true
+
+    - name: downloading tomcat 8.5
+      get_url: url=https://downloads.apache.org/tomcat/tomcat-8/v8.5.81/bin/apache-tomcat-8.5.81.tar.gz dest=/tmp/ mode=0755
+      become: true
+
+    - name: just checking the download remote tomcat files
+      command: "ls -lrt /tmp/"
+      become: true
+
+        #- name: copy Tomcat
+    # Please make sure that you must fist copy this tomcat.tar zip file then follow the as its
+    #copy: src=/tmp/apache-tomcat-8.5.81.tar.gz dest=/opt/apache-tomcat-8.5.81.tar.gz
+    # become: true
+
+    - name: Extract Tomcat archive
+      command: tar -zxvf /tmp/apache-tomcat-8.5.81.tar.gz -C /opt/ creates=/opt/apache-tomcat-8.5.81
+      become: true
+      tags:
+        - tomcat-extract
+
+    - name: Change ownership of Tomcat installation
+      file: path=/opt/apache-tomcat-8.5.81 owner=tomcat group=tomcat state=directory recurse=yes
+      become: true
+      tags:
+        - tomcat-ownershipt
+
+    - name: Configure Tomcat users
+      template: src=/etc/ansible/playbooks/tomcat-users.xml dest=/opt/apache-tomcat-8.5.81/conf/
+      become: true
+      tags:
+        - tomcat-userxml
+
+    - name: File permissions changes for  Tomcat
+      shell: "chmod -R 775 /opt/apache-tomcat-8.5.81"
+      become: true
+      tags:
+        - tomcat-permission
+
+    - name: Stop Tomcat
+      command: nohup /opt/apache-tomcat-8.5.81/bin/shutdown.sh
+      become: true
+      tags:
+        - tomcat-stop
+
+        #become_user: tomcat
+
+    - name: Start Tomcat
+      command: nohup /opt/apache-tomcat-8.5.81/bin/startup.sh
+      become: true
+      tags:
+        - tomcat-start
+
+        #become_user: tomcat
+
+#    - name: wait for tomcat to start
+ #     wait_for: port={{http_port}}
+  #    become: true
+
