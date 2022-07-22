@@ -6,6 +6,7 @@
       aws_regio: us-west-2
       aws_access_key: AKIA4Xadfgdoahfaohdoho
       aws_secret_key: Vpkdadlhflkhlhafdahohlhloh
+      ansible_python_interpreter: /usr/bin/python3
   tasks:
   - name: Create s3 bucket
     s3_bucket:
