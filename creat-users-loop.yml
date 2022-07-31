@@ -8,7 +8,7 @@
       user:
         name: "{{ item }}"
         state: present
-        groups: "classgroup"
+        groups: "ansadm"
       with_items:
         - shiva
         - surya
