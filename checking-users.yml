@@ -1,1 +1,8 @@
+---  
 - hosts: all
+  #user: ansadm 
+  become: yes
+  become_method: sudo
+  tasks:
+       - name: checking the users of shiva,surya and kiran on nodes
+         shell: "id shiva;id surya; id kiran"
