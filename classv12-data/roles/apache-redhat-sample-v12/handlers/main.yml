@@ -1,0 +1,7 @@
+---
+# handlers file for apache-redhat-sample-v12
+- name: restart apache service
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes

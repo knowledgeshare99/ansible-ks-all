@@ -1,0 +1,19 @@
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1662776889651",
+    "Statement": [
+        {
+            "Sid": "Stmt1662776884167",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectVersion"
+            ],
+            "Resource": [
+                "arn:aws:s3:::myeample-ansible-bucket99",
+                "arn:aws:s3:::myeample-ansible-bucket99/*"
+            ]
+        }]
+
+}

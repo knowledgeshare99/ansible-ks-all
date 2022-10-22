@@ -1,0 +1,9 @@
+---
+- hosts: all
+
+  roles:
+    - apache-redhat-sample-v12
+    - nginxinc.nginx
+    - jboss-classv12
+
+

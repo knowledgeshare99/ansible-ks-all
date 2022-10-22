@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo 
+
+  tasks:
+    - name: creating multiple users
+      user: name={{ item }} state=present groups=ansadm
+
+      with_items:
+        - dilip
+        - krish
+        - sow-dev
+        - soumya
+        - uma
+
+    - name: checking above users created or not
+      shell: id dilip; id krish; id soumya

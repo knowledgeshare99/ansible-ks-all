@@ -1,0 +1,5 @@
+---
+# vars file for apache-redhat-sample-v12
+httpd_packages:
+  - httpd
+  - python3-mod_wsgi

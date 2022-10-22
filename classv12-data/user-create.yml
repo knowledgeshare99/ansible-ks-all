@@ -1,0 +1,8 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo 
+
+  tasks:
+    - name: creating single user
+      user: name=sowuser state=present groups=ansadm
